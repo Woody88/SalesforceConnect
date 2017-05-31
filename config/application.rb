@@ -18,7 +18,6 @@ Bundler.require(*Rails.groups)
 
 module SalesforceConnect
   class Application < Rails::Application
-    Dotenv::Railtie.load
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 5.1
     config.autoload_paths += %W(#{config.root}/lib)
@@ -31,8 +30,6 @@ module SalesforceConnect
 
     Restforce.configure do |config|
       config.api_version = '38.0'
-      config.username = ENV["SF_USERNAME"]
-      config.password = ENV["SF_PASS"]
       # ...
     end
   end
