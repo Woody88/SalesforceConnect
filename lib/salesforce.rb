@@ -7,7 +7,6 @@ module Salesforce
                            security_token: ENV["SF_SECRET_TOKEN"],
                            client_id: ENV["SF_CLIENT_ID"],
                            client_secret: ENV["SF_CLIENT_SECRET"],
-                           host: "https://login.salesforce.com",
                            instance_url: "https://na50.salesforce.com"
                            )
   end
