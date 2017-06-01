@@ -1,0 +1,28 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Sf Cases</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @sf_cases.each do |sf_case| %>
+      <tr>
+        <td><%= sf_case["Id"] %></td>
+        <td><%= sf_case["Subject"] %></td>
+        <td><%= sf_case["CaseNumber"] %></td>
+        <td><%= link_to 'Show', sf_case %></td>
+        <td><%= link_to 'Edit', edit_sf_case_path(sf_case["Id"]) %></td>
+        <td><%= link_to 'Destroy', "/sf_cases/#{sf_case["Id"]}", method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Sf Case', new_sf_case_path %>
