@@ -1,4 +1,7 @@
 <p id="notice"><%= notice %></p>
+<td><%= @sf_case.Id %></td>
+<td><%= @sf_case.Subject %></td>
+<td><%= @sf_case.CaseNumber %></td>
 
-<%= link_to 'Edit', edit_sf_case_path(@sf_case) %> |
+<%= link_to 'Edit', edit_sf_case_path(@sf_case.Id) %> |
 <%= link_to 'Back', sf_cases_path %>

@@ -24,14 +24,13 @@ class SfCasesController < ApplicationController
   # POST /sf_cases
   # POST /sf_cases.json
   def create
-    @sf_case = SfCase.new(sf_case_params)
-
+    @sf_case = SFCase.create(sf_case_params.to_h.symbolize_keys)
     respond_to do |format|
-      if @sf_case.save
+      if @sf_case.sf_valid?
         format.html { redirect_to @sf_case, notice: 'Sf case was successfully created.' }
-        format.json { render :show, status: :created, location: @sf_case }
+        format.json { render :show, status: :created, location: @sf_case.Id }
       else
-        format.html { render :new }
+        format.html { render :new, flash: {:errors => @sf_case.errors.messages} }
         format.json { render json: @sf_case.errors, status: :unprocessable_entity }
       end
     end
@@ -40,12 +39,15 @@ class SfCasesController < ApplicationController
   # PATCH/PUT /sf_cases/1
   # PATCH/PUT /sf_cases/1.json
   def update
+    h = sf_case_params.to_h
+    h[:Id] = params[:id]
+    @sf_case = SFCase.update(h.symbolize_keys)
     respond_to do |format|
-      if @sf_case.update(sf_case_params)
+      if @sf_case.sf_valid?
         format.html { redirect_to @sf_case, notice: 'Sf case was successfully updated.' }
         format.json { render :show, status: :ok, location: @sf_case }
       else
-        format.html { render :edit }
+        format.html { redirect_to "/sf_cases/#{@sf_case.Id}/edit", flash: {:errors => @sf_case.errors.messages} }
         format.json { render json: @sf_case.errors, status: :unprocessable_entity }
       end
     end
@@ -65,10 +67,11 @@ class SfCasesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_sf_case
       @sf_case = SFCase.find(params[:id])
+
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def sf_case_params
-      params.fetch(:sf_case, {})
+      params.require(:sf_case).permit(SFCase.attributes)
     end
 end

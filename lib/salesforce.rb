@@ -1,7 +1,6 @@
 module Salesforce
   extend self
 
-
   def find(object, id)
     connect.find(object, id)
   end
@@ -10,12 +9,14 @@ module Salesforce
     connect.query(object)
   end
 
-  def update(hash)
-    connect.update(hash[:object], hash.except(:object))
+  def update(object, hash, clazz)
+    obj = connect.update!(object, hash)
+    obj ? create_obj(obj, clazz) : create_invalid_obj(clazz)
   end
 
-  def create(hash)
-    connect.create!(hash[:object], hash.except(:object))
+  def create(object, hash, clazz)
+    obj = connect.create!(object, hash)
+    obj ? create_obj(obj, clazz) : create_invalid_obj(clazz)
   end
 
   def delete(hash)
@@ -50,5 +51,16 @@ module Salesforce
                   security_token: ENV["SF_SECRET_TOKEN"],
                   client_id: ENV["SF_CLIENT_ID"],
                   client_secret: ENV["SF_CLIENT_SECRET"])
+  end
+
+
+  def create_obj(id, clazz)
+    clazz.new({Id: id}).set_sf_valid(true)
+  end
+
+  def create_invalid_obj(clazz)
+    obj = clazz.new
+    obj.errors.add(:base, "Salesforce couldn't not create/update #{self}")
+    obj.set_sf_valid(false)
   end
 end

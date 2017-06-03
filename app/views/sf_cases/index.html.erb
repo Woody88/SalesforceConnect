@@ -15,7 +15,7 @@
         <td><%= sf_case["Id"] %></td>
         <td><%= sf_case["Subject"] %></td>
         <td><%= sf_case["CaseNumber"] %></td>
-        <td><%= link_to 'Show', sf_case %></td>
+        <td><%= link_to 'Show', sf_case_path(sf_case.Id) %></td>
         <td><%= link_to 'Edit', edit_sf_case_path(sf_case["Id"]) %></td>
         <td><%= link_to 'Destroy', "/sf_cases/#{sf_case["Id"]}", method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
