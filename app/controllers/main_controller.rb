@@ -20,6 +20,15 @@ class MainController < ApplicationController
     end
   end
 
+  def logout
+    session[:sf_cred] = false
+    redirect_to "/"
+  end
+
+  def report
+      
+  end
+
   private
 
   def user_params

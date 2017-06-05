@@ -1,5 +1,5 @@
 
-<%= simple_form_for @sf_case, :url => (@sf_case.Id ? sf_case_path : new_sf_case_path), :method => (@sf_case.Id ? "put" : "post") do |f| %>
+<%= simple_form_for @sf_case, :url => case_form_path(@sf_case), :method => case_form_method(@sf_case) do |f| %>
   <%= f.error_notification %>
 
   <div class="form-inputs">

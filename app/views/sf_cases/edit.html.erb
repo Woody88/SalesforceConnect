@@ -1,6 +1,5 @@
-<h1>Editing Sf Case</h1>
+<h1>Modify Case-<%= @sf_case.CaseNumber%></h1>
 
 <%= render 'form', sf_case: @sf_case %>
 
-<%= link_to 'Show', @sf_case %> |
-<%= link_to 'Back', sf_cases_path %>
+<%= link_to 'Back ', sf_case_path(@sf_case.Id) %>

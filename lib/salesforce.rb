@@ -60,7 +60,7 @@ module Salesforce
 
   def create_invalid_obj(clazz)
     obj = clazz.new
-    obj.errors.add(:base, "Salesforce couldn't not create/update #{self}")
+    obj.errors.add(:base, "Salesforce couldn not create/update ")
     obj.set_sf_valid(false)
   end
 end

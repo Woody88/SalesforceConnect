@@ -4,6 +4,8 @@
     <title>SalesforceConnect</title>
     <%= csrf_meta_tags %>
 
+    <link href='https://fonts.googleapis.com/css?family=Oxygen' rel='stylesheet' type='text/css'>
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
@@ -16,8 +18,13 @@
         </div>
 
         <ul class="nav navbar-nav navbar-right">
+          <li><a href="/report">説明ーExplanation</a></li>
           <li><a href="/sf_cases">Cases</a></li>
-          <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+          <%- unless is_login? %>
+            <li><a href="/"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+          <%- else %>
+            <li><a href="<%= logout_path %>"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+          <% end %>
         </ul>
       </div>
     </nav>
@@ -30,5 +37,6 @@
     <div class="container">
       <%= yield %>
     </div>
+
   </body>
 </html>
